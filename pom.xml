@@ -8,7 +8,6 @@
     <artifactId>spring-petclinic</artifactId>
     <version>3.4.0-SNAPSHOT</version>
 
-    <!-- 📦 Change packaging from jar to war -->
     <packaging>war</packaging>
 
     <name>Spring Petclinic</name>
@@ -17,33 +16,32 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.2.4</version> <!-- version may differ slightly -->
-        <relativePath/> <!-- lookup parent from repository -->
+        <version>3.2.4</version>
+        <relativePath/> 
     </parent>
 
     <properties>
-        <java.version>17</java.version> <!-- or 21 depending -->
+        <java.version>17</java.version>
     </properties>
 
     <dependencies>
         <!-- Your existing dependencies here -->
 
-        <!-- ➡️ Add this special dependency for WAR deployment -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-tomcat</artifactId>
             <scope>provided</scope>
         </dependency>
 
-        <!-- (other dependencies like web, JPA, MySQL, etc.) -->
-
+        <!-- Add other dependencies like web, JPA, etc. -->
     </dependencies>
 
     <build>
         <plugins>
-            <!-- (you can leave existing plugins like spring-boot-maven-plugin) -->
+            <!-- existing plugins if any -->
         </plugins>
     </build>
 
 </project>
+
 
