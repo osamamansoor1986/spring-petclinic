@@ -9,7 +9,7 @@ pipeline {
     steps {
         git branch: 'main', url: 'https://github.com/osamamansoor1986/spring-petclinic.git'
     }
-}
+
 
         stage('Build JAR') {
             steps {
