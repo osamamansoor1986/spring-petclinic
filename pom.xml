@@ -9,7 +9,7 @@
 <groupId>org.springframework.samples</groupId>
 <artifactId>spring-petclinic</artifactId>
 <version>3.4.0-SNAPSHOT</version>
-<packaging>war</packaging>
+<packaging>jar</packaging>
 <name>petclinic</name>
 <properties>
 <!--  Generic properties  -->
