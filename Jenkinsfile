@@ -5,12 +5,11 @@ pipeline {
         APP_PORT = '9090'
     }
 
-    stages {
-        stage('Checkout') {
-            steps {
-                git 'https://github.com/osamamansoor1986/spring-petclinic.git'
-            }
-        }
+  stage('Checkout') {
+    steps {
+        git branch: 'main', url: 'https://github.com/osamamansoor1986/spring-petclinic.git'
+    }
+}
 
         stage('Build JAR') {
             steps {
