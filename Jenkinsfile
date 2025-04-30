@@ -3,6 +3,7 @@ pipeline {
 
     environment {
         APP_PORT = '9090'
+        PID_FILE = 'pid.txt'
     }
 
     stages {
@@ -21,16 +22,20 @@ pipeline {
         stage('Run App') {
             steps {
                 sh '''
-                    if pgrep -f "spring-petclinic"; then
-                        pkill -f "spring-petclinic"
-                        echo "Previous Spring Petclinic process killed."
-                    else
-                        echo "No previous process found."
+                    if [ -f "${PID_FILE}" ]; then
+                        OLD_PID=$(cat ${PID_FILE})
+                        if ps -p $OLD_PID > /dev/null; then
+                            kill $OLD_PID
+                            echo "Killed existing process with PID $OLD_PID"
+                        else
+                            echo "No process with PID $OLD_PID running"
+                        fi
+                        rm -f ${PID_FILE}
                     fi
 
                     nohup java -jar target/*-exec.jar --server.port=${APP_PORT} > app.log 2>&1 &
-                    echo $! > pid.txt
-                    echo "New Spring Petclinic started with PID $(cat pid.txt)"
+                    echo $! > ${PID_FILE}
+                    echo "Started Spring Petclinic with PID $(cat ${PID_FILE})"
                 '''
             }
         }
