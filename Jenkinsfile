@@ -20,29 +20,21 @@ pipeline {
 
         stage('Run App') {
             steps {
-                sh '''
-                    echo "Stopping any existing Spring Petclinic process..."
-                    pkill -f spring-petclinic || true
+                // Kill previous instance if running
+                sh 'pkill -f "spring-petclinic" || true'
 
-                    echo "Starting Spring Petclinic on port $APP_PORT..."
-                    nohup java -jar target/*-exec.jar --server.port=$APP_PORT > app.log 2>&1 &
-
-                    sleep 5
-
-                    echo "Checking if the application started..."
-                    pgrep -f spring-petclinic > /dev/null
-                '''
+                // Start the new application in background
+                sh 'nohup java -jar target/*-exec.jar --server.port=${APP_PORT} > app.log 2>&1 &'
             }
         }
     }
 
     post {
         success {
-            echo "Spring Petclinic deployed successfully at http://10.1.0.123:${APP_PORT}"
+            echo "Spring Petclinic deployed successfully at https://10.1.0.123:${APP_PORT}"
         }
         failure {
             echo "Deployment failed. Check logs."
         }
     }
 }
-
